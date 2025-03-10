@@ -1,0 +1,5 @@
+# exclude .env variables
+.env
+
+# exclude env dir
+env/*
