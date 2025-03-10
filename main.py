@@ -1,3 +1,5 @@
+"""main file"""
+
 from datetime import datetime, timezone
 
 import requests
@@ -48,6 +50,7 @@ def get_pages(num_pages=None):
 
 
 def create_page(data: dict):
+    """create new page"""
     create_url = "https://api.notion.com/v1/pages"
 
     payload = {"parent": {"database_id": DATABASE_ID}, "properties": data}
@@ -58,6 +61,7 @@ def create_page(data: dict):
 
 
 def update_page(page_id: str, data: dict):
+    """update page"""
     url = f"https://api.notion.com/v1/pages/{page_id}"
 
     payload = {"properties": data}
@@ -68,21 +72,26 @@ def update_page(page_id: str, data: dict):
     return res
 
 
-def main():
-    """Main function of the script."""
-    # get_pages()
+def generate_create_page_data():
     name = "My Custom Coin"
     price = 6.66
     published_date = datetime.now().astimezone(timezone.utc).isoformat()
-    data = {
+    return {
         "Name": {"title": [{"text": {"content": name}}]},
         "Price": {"number": price},
         "Updated at": {"date": {"start": published_date, "end": None}},
     }
-    # create_page(data)
-    page_id_to_update = ""
-    # update_page(page_id=page_id_to_update, data=data)
 
 
 if __name__ == "__main__":
-    main()
+    """Main function of the script."""
+
+    # List pages on given database
+    # get_pages()
+
+    # Create page based on data provided in dict
+    # create_page(data=generate_create_page_data())
+
+    # Update particular page id
+    # page_id_to_update = ""
+    # update_page(page_id=page_id_to_update, data=generate_create_page_data())
